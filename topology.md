@@ -36,10 +36,6 @@ Picture:
 ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^
 ```
 
-Why can you build 16 sets this way? Beacuse that's the cardinality of `P({int(A), int(A'), lim(A), lim(A')})`.
-
-Q: Can you give an example of a space and set where all of these are different?
-
 
 Open and Closed
 ===============
