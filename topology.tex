@@ -1,0 +1,85 @@
+\documentclass{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{amssymb}
+\newcommand{\cl}{\mathrm{cl}}
+
+\setlength{\parindent}{0pt} % Default is 15pt.
+\setlength{\parskip}{6pt plus1pt minus1pt}
+
+\begin{document}
+
+\section{When Metrics Don't Matter}
+
+At first glance, distance is a deceptively straight forward idea. So simple. And it is this simplicity that makes it so powerful.
+
+...
+
+Different though these metrics seem, they actually agree on surprisingly great deal. The agree on what the boundary of sets are and whether sets are connected. They agree on which functions involving our space as its domain or range are continuous. The agree on whether our sets have holes in them.
+
+These observations hint that, for a certain class of questions, much of the information encoded in a notion of distance is superfluous and that some core similarity runs between all these different metrics. And, for me at least, such observations begin the thrill of the mathematical hunt. Can we precisely define this commonality between different metrics? Can we abstract away this core similarity and detach from notions of distance? If we succeed in abstracting this notion away, will it allow us to bring these notions to spaces that we can't put a useful metric on? The answer to all of these is yes!
+
+If you think about it for a moment, you may begin to suspect that all this is entangled with what it means to be very very close under a certain metric. The Euclidean and Manhatan metric may disagree with specific issues, but they agree that the sequence of points $$(0.1,0.1), ~ (0.01,0.01), ~ (0.001,0.001)...$$ gets arbitrarily close to $(0,0)$. Since a lot of the issues we've talked about, like continuity, boundary, and connectedness involve infintessimal behavior, ``arbitrary closeness'' seems like rather promising avenue.
+
+On this intuition, we will pursue this idea of being arbitrarily or infinitely close. As it turns out, this is the field of topology. From this initial mission statement, it may seem like a very sparse or dry topic, but as we shall see it is actually exceedingly rich. In some ways, one might thing of topology as giving us a sort of ``qualitative geometry" where we escape concerns like specific length and angles. The ideas are also remarkable for their extreme generality
+
+You may have previously heard things like: ``A topologist is someone who can't tell the difference between a coffee cup and a donut, because you can stretch and squish one into another.'' There's some truth to this. If you can imagine deforming one clay object into another, then they are topologically equivalent. This is because, while the distances between points may change, the local ``arbitrary closeness'' is unaffected and so when you forget about distance and only remember this arbitrary closeness, they are the same object. That said, topological equivalence doesn't actually require these imaginary deformations. And in fact, this image of topology really sells short the field.
+
+At this point, you are hopefully persuaded that this ``arbitrary closeness'' is a worthwhile topic of investigation, even if you are somewhat skeptical of the claimed richness. As such, it is an appropriate time for us to nail down some more precise definitions. The correct definition is a complicated issue, often without a right or wrong answer,\footnote{See \emph{Proofs and Refutations} by Lakatos et al.} and we will evolve more sophisticated definitions of a topological space as we progress, but for now we shall base our inquiry on the notion of adherant points.
+
+A point is called an \emph{adherant point} of a set if it is in or infinitely close to that set. That is, $p$ is an adherant point of $S$ if one can find $q ∈ S$ that is arbitrarily close to $p$. The \emph{closure} of a set $S$, $\cl(S)$, is all the adherant points of $S$. You can think of it as $S$, plus any parts of its boundary that it was missing.
+
+A topological space $(X, \cl)$, then, is a space $X$ equipped with a closure operator $\cl$.
+
+\section{The Abstract Axiomatic Approach}
+
+One of the most famous mathematicians of all time is Euclid. He wrote a book, Euclid's \emph{Elements}, proving a large number of geometric results. Most of the results of Euclid's \emph{Elements} were proved before him by others, so why is it such a revered book? The true remarkableness of it lies not in the proved results, but in the way it begins with a few trivial geometric facts (eg. ``a line can be drawn between any two points'') that everyone can easily agree to be true, and builds up all the results as a logical progression from there.\footnote{This section is inspired by the section `Axioms and Men' from Pinter's \emph{A Book of Abstract Algebra}}
+
+One consequence of axiomatic approach is that it makes truth very objective, in some sense. Once you and I agree on the axioms, we can agree on whether or not a given result is true.\footnote{This sort of objective agreement on truth given prior agreement on certain basic things has some nice generalizations to probabilistic conditions and ``real life''. See Aumann's Agreement Theorem and friends.} Further, even if you don't agree with me on the axioms, we should be able to agree on whether results are true \emph{were} the axioms true.
+
+This axiomatic approach shouldn't be seen as constraining. It doesn't mean that every proof needs to be stated in terms of axioms, since we can use anything we've previously proven. And often informal discussion and intuition will not involve axioms at all. And it leaves you free to consider any system of axioms you want, and imagine what that world would be like!
+
+But not only is the axiomatic approach not constraining, it can be empowering. A great deal can be revealed about a topic by boiling it down to its core premises, on which everything is based. One sees how many of ideas really encode the same information. One can look at what changes as axioms are added and removed.
+
+It's worth noting that, very frequently, axioms don't just float free, but are baked into the definition of something. ...
+
+Let's set aside axioms for a moment, and conduct a thought experiment. You are a mathematician a few centuries ago, interested in proving 
+
+
+... 
+
+(Readers with a background in programming or computer science may like to think of this as making mathematical proofs polymorphic, proving things not for a singular type of object, but for any type that extends a class, implements an interface, or the analogous idea in one's preferred programming language.\footnote{This analogy between proofs and programs is actually very deep. See the Curry-Howard Correspondence, which links proofs of theorems to programs generating objects of a particular type.})
+
+\section{Axiomatization of Topological Spaces}
+
+What sort of restrictions should be placed on a valid topological space?
+
+Let's start by trying to ask concrete questions. For any space, there are two sets that are necessarily available for us to talk about: the empty set, $∅$, and the full space $X$. What should the closure of these be?
+
+To say that $\cl(∅)$ is anything other than the empty set doesn't really seem reasonable. It is equivalent to saying that some points in our space are on the boundary of \emph{nothing}. Therefore, $$\cl(∅) = ∅$$
+
+To say that $\cl(X)$ is anything other than $X$ doesn't really seem reasonable either. The only other possibility would be for the closure to be a subset of $X$, which would be to say that points in $X$ aren't infinitely close to it, that adding the boundary removes point from the set. That would be pretty silly. And it brings us to a more general principle: the closure of $S$ should always include $S$, $$S ⊆ \cl(S)$$
+
+Another natural question to ask, when given a function that takes objects of one type to the same type, is what happens if we apply it repeatedly. What happens if we iterate? What type of function is $\cl ∘ \cl ∘ \cl ∘ ...$? Well, suppose $x ∈ \cl(\cl(S))$. Then $x$ is `infinitely close' to points in $\cl(S)$, which are `infinitely close' to points in $S$. It seems reasonable to think that the property of being `infinitely close' should be associative, and that $x$ should then be infinitely close to points in $S$. So, $x ∈ \cl(\cl(S))$ implies that $x ∈ \cl(S)$. Combined with the fact that $S ⊆ \cl(S)$, it must be the case that $$\cl(\cl(S)) = \cl(S)$$. That is, adding the boundary of a set to a set doesn't create a larger boundary. And in answer to our previous question, $\cl ∘ \cl ∘ \cl ∘ ... = \cl$.
+
+Yet another natural question to ask is how closure interacts with our standard set operations. We will explore its relationship to complement shortly, but for now leave ourselves to consider only union and intersection.
+
+Clearly, the closure of the union of $A$ and $B$ should contain the closure of $A$ and the closure of $B$ -- $\cl(A)∪\cl(B) ⊆ \cl(A∪B)$. But should the closure contain additional points? Can a point be `infinitely close' to the union of $A$ and $B$ without being `infinitely close' to $A$ or $B$?
+
+....
+\section{Topological Anatomy: Interior, Boundary...}
+
+
+
+%  __________________    __________________    __________________    __________________
+% |    int(A)        |  |    int(A)        |  |            A'    |  |                  |
+% |------------------|  |------------------|  |---------         |  |       cl(A)      |
+% | lim(A) | lim(A') |  |  bd(A) = bd(A')  |  |        |         |  |                  |
+% |------------------|  |------------------|  |        ----------|  |------------------|
+% |    int(A')       |  |    int(A')       |  |    A             |  |    int(A')       |
+% ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^
+
+\section{Open and Closed}
+
+
+\end{document}
