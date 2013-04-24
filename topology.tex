@@ -1,13 +1,23 @@
-\documentclass{article}
+\documentclass{report}
 
 \usepackage[utf8x]{inputenc}
 \usepackage{amssymb}
+\let\mathbbm=\mathbb
 \newcommand{\cl}{\mathrm{cl}}
+\newcommand{\intr}{\mathrm{int}}
+\newcommand{\bd}{\mathrm{bd}}
 
 \setlength{\parindent}{0pt} % Default is 15pt.
 \setlength{\parskip}{6pt plus1pt minus1pt}
 
 \begin{document}
+
+\title{A Weird, Intuitive, Introduction to Topology\\{\small(To Be Given a More Glamorous Title It Amounts to Anything)}}
+\author{Chris Olah}
+
+\maketitle
+
+\chapter{Finding Closure}
 
 \section{When Metrics Don't Matter}
 
@@ -19,7 +29,7 @@ Different though these metrics seem, they actually agree on surprisingly great d
 
 These observations hint that, for a certain class of questions, much of the information encoded in a notion of distance is superfluous and that some core similarity runs between all these different metrics. And, for me at least, such observations begin the thrill of the mathematical hunt. Can we precisely define this commonality between different metrics? Can we abstract away this core similarity and detach from notions of distance? If we succeed in abstracting this notion away, will it allow us to bring these notions to spaces that we can't put a useful metric on? The answer to all of these is yes!
 
-If you think about it for a moment, you may begin to suspect that all this is entangled with what it means to be very very close under a certain metric. The Euclidean and Manhatan metric may disagree with specific issues, but they agree that the sequence of points $$(0.1,0.1), ~ (0.01,0.01), ~ (0.001,0.001)...$$ gets arbitrarily close to $(0,0)$. Since a lot of the issues we've talked about, like continuity, boundary, and connectedness involve infintessimal behavior, ``arbitrary closeness'' seems like rather promising avenue.
+If you think about it for a moment, you may begin to suspect that all this is entangled with what it means to be very very close under a certain metric. The Euclidean and Manhatan metric may disagree with specific issues, but they agree that the sequence of points $$(0.1,0.1), ~ (0.01,0.01), ~ (0.001,0.001) ~...$$ gets arbitrarily close to $(0,0)$. Since a lot of the issues we've talked about, like continuity, boundary, and connectedness involve infintessimal behavior, ``arbitrary closeness'' seems like rather promising avenue.
 
 On this intuition, we will pursue this idea of being arbitrarily or infinitely close. As it turns out, this is the field of topology. From this initial mission statement, it may seem like a very sparse or dry topic, but as we shall see it is actually exceedingly rich. In some ways, one might thing of topology as giving us a sort of ``qualitative geometry" where we escape concerns like specific length and angles. The ideas are also remarkable for their extreme generality
 
@@ -50,36 +60,91 @@ Let's set aside axioms for a moment, and conduct a thought experiment. You are a
 
 (Readers with a background in programming or computer science may like to think of this as making mathematical proofs polymorphic, proving things not for a singular type of object, but for any type that extends a class, implements an interface, or the analogous idea in one's preferred programming language.\footnote{This analogy between proofs and programs is actually very deep. See the Curry-Howard Correspondence, which links proofs of theorems to programs generating objects of a particular type.})
 
+{\bf Exercise}: Pick an abstract structure you are unfamiliar with that was mentioned in this section. Imagine some reasonableness rules it might be subject to. Brainstorm a list of nice properties for it to have. Then look up its definition and see if you were right! Try to understand the motivation where the definition differs from yours. (Repeat this exercise as desired, until you run out of unknown structures!)
+
+{\bf Exercise}: Pick an abstract structure you are familiar with. Try to define it in the most radically different way possible. Extra points for more alternative definitions. Extra points for inventing new words in the process.
+
 \section{Axiomatization of Topological Spaces}
 
 What sort of restrictions should be placed on a valid topological space?
 
-Let's start by trying to ask concrete questions. For any space, there are two sets that are necessarily available for us to talk about: the empty set, $∅$, and the full space $X$. What should the closure of these be?
+Let's start by trying to ask concrete questions. For any space, there are two sets that are necessarily available for us to talk about: the empty set, $∅$, and the full space, $X$. What should the closure of these be?
 
 To say that $\cl(∅)$ is anything other than the empty set doesn't really seem reasonable. It is equivalent to saying that some points in our space are on the boundary of \emph{nothing}. Therefore, $$\cl(∅) = ∅$$
 
 To say that $\cl(X)$ is anything other than $X$ doesn't really seem reasonable either. The only other possibility would be for the closure to be a subset of $X$, which would be to say that points in $X$ aren't infinitely close to it, that adding the boundary removes point from the set. That would be pretty silly. And it brings us to a more general principle: the closure of $S$ should always include $S$, $$S ⊆ \cl(S)$$
 
-Another natural question to ask, when given a function that takes objects of one type to the same type, is what happens if we apply it repeatedly. What happens if we iterate? What type of function is $\cl ∘ \cl ∘ \cl ∘ ...$? Well, suppose $x ∈ \cl(\cl(S))$. Then $x$ is `infinitely close' to points in $\cl(S)$, which are `infinitely close' to points in $S$. It seems reasonable to think that the property of being `infinitely close' should be associative, and that $x$ should then be infinitely close to points in $S$. So, $x ∈ \cl(\cl(S))$ implies that $x ∈ \cl(S)$. Combined with the fact that $S ⊆ \cl(S)$, it must be the case that $$\cl(\cl(S)) = \cl(S)$$. That is, adding the boundary of a set to a set doesn't create a larger boundary. And in answer to our previous question, $\cl ∘ \cl ∘ \cl ∘ ... = \cl$.
+Another natural question to ask, when given a function that takes objects of one type to the same type, is what happens if we apply it repeatedly. What happens if we iterate? What kind of function is $\cl ∘ \cl ∘ \cl ∘ ...$? Well, suppose $x ∈ \cl(\cl(S))$. Then $x$ is `infinitely close' to points in $\cl(S)$, which are `infinitely close' to points in $S$. It seems reasonable to think that the property of being `infinitely close' should be associative, and that $x$ should then be infinitely close to points in $S$. So, $x ∈ \cl(\cl(S))$ implies that $x ∈ \cl(S)$. Combined with the fact that $S ⊆ \cl(S)$, it must be the case that $$\cl(\cl(S)) = \cl(S)$$. That is, adding the boundary of a set to a set doesn't create a larger boundary. And in answer to our previous question, $\cl ∘ \cl ∘ \cl ∘ ... = \cl$.
 
 Yet another natural question to ask is how closure interacts with our standard set operations. We will explore its relationship to complement shortly, but for now leave ourselves to consider only union and intersection.
 
-Clearly, the closure of the union of $A$ and $B$ should contain the closure of $A$ and the closure of $B$ -- $\cl(A)∪\cl(B) ⊆ \cl(A∪B)$. But should the closure contain additional points? Can a point be `infinitely close' to the union of $A$ and $B$ without being `infinitely close' to $A$ or $B$?
+Clearly, the closure of the union of $A$ and $B$ should contain the closure of $A$ and the closure of $B$ -- that is $\cl(A)∪\cl(B) ⊆ \cl(A∪B)$. But should the closure contain additional points? Can a point be `infinitely close' to the union of $A$ and $B$ without being `infinitely close' to $A$ or $B$? Again, this doesn't seem very reasonable. So, $$\cl(A)∪\cl(B) = \cl(A∪B)$$
 
-....
+What about intersection? A quick example will persuade you that there is little to be said here. The issue is that the two sets could be getting close to the set in very different ways. For example, consider the real numbers under and our usual notion of closure. The real numbers greater than zero, $ℝ_{>0}$, and real numbers less than zero, $ℝ_{<0}$, both get infinitely close to $0$, but they do so from opposite sides and so the intersection is empty and the closure of that is empty. Therefore, $\cl(A)∩\cl(B) ≠ \cl(A∩B)$.
+
+These four properties we have come up with are called the \emph{Kuratowski closure axioms} or just the \emph{closure axioms}. They are (equivalent to) the definition of a topological space.
+
+Now, you may feel there is a certain arbitrariness to selecting these axioms for our definition. Sure, they seem like reasonable axioms, but why them and not others? And you're absolutely correct. They are kind of arbitrary.
+
+The thing is, mathematician's also talk about weaker versions of topological spaces (with few axioms) and stronger ones (with additional axioms). For example, a pre-topological space is a topological space without the requirement that $\cl(\cl(S)) = \cl(S)$. On the other hand a $T1$ topological space is one which has the additional requirement that $\cl(\{x\}) = \{x\}$, that no other points are `infinitely close' to an individual point. One is free to study any of these that they like. It just that topological spaces seem to be a healthy compromise to start at.
+
 \section{Topological Anatomy: Interior, Boundary...}
 
+Up to this point, we've only talked about closure. You may be getting tired of it. Never fear, we're about to greatly expand the topological operations we have available.
 
+To begin with, let us define the \emph{boundary} of a set as the points that adhere to both the set and its complement. $$\bd(S) = \cl(S)∩\cl(S^C)$$
 
-%  __________________    __________________    __________________    __________________
-% |    int(A)        |  |    int(A)        |  |            A'    |  |                  |
-% |------------------|  |------------------|  |---------         |  |       cl(A)      |
-% | lim(A) | lim(A') |  |  bd(A) = bd(A')  |  |        |         |  |                  |
-% |------------------|  |------------------|  |        ----------|  |------------------|
-% |    int(A')       |  |    int(A')       |  |    A             |  |    int(A')       |
-% ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^
+We will also define the \emph{interior} operator, which will be the opposite of our closure operator. Instead of adding the boundary to a set, it removes the boundary from a set. We can find the interior of a set by considering the closure of its complement. By adding the boundary to the complement of the set, when we complement again we get our set without the boundary. Alternatively, we can define the interior as the set minus the boundary. $$\intr(S) = \cl(S^C)^C = S \setminus \bd(S)$$
+
+Finally, the limit points of a set are the parts of the closure that are not in the original set. $$\lim(S) = \cl(S) \setminus S$$
+
+To build some intuition, let's consider an example: the space is a rectangle, with our set as the bottom half, its complement as the top. They both contain part of the small stripe boundary.
+
+...
+%   __________________  
+%  |            A'    |
+%  |---------         |
+%  |        |         |
+%  |        ----------|
+%  |    A             |
+%  ^^^^^^^^^^^^^^^^^^^^
+
+Let's now consider what happens to the set when we apply a number of operations.
+
+...
+%  __________________    __________________    __________________
+% |    int(A)        |  |    int(A)        |  |                  |
+% |------------------|  |------------------|  |       cl(A)      |
+% | lim(A) | lim(A') |  |  bd(A) = bd(A')  |  |                  |
+% |------------------|  |------------------|  |------------------|
+% |    int(A')       |  |    int(A')       |  |    int(A')       |
+% ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^
+
+{\bf Exercise}: How many different sets can you make using $\cl$ and the standard set operations? %smaller sets hint?
+
+{\bf Exercise}: A topological space can be defined in terms of an interior operator as well as closure. What are the axioms for an interior-based definition? (eg. $\intr(\intr(S)) = \intr(S)$ )
+
 
 \section{Open and Closed}
+
+An open set is one which is its own interior ($\intr(S) = S$). This means that it does not contain its boundary. Conversely, a closed set is one which is its own closure ($\cl(S) = S$). Closed sets contain their boundary.
+
+A clopen set is a set that is both open and closed. How can this be? How can a set both contain and not contain its boundary? The answer is that clopen sets \emph{don't have a boundary}. For example, the empty set $∅$ and the full space $X$ are both clopen sets, since they have no boundary. The existence of other clopen sets is tightly tied to notions of connectedness, since if some portion of a space does not have a boundary, it is not connected to the rest of the space.
+
+It is important to note that not all sets are open or closed (or both). Many contain part of their boundary but not another part.
+
+{\bf Exercise}: Are the following sets open, closed, clopen or neither?
+
+
+\section{What Does Closure Look Like?}
+
+\chapter{Finding Openess}
+
+\section{Arbitrarily Close}
+
+\section{Topology in Terms of Open Sets}
+
+
 
 
 \end{document}
