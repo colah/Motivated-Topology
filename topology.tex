@@ -1,6 +1,7 @@
 \documentclass{report}
 
 \usepackage[utf8x]{inputenc}
+\usepackage[inline]{asymptote}
 \usepackage{amssymb}
 \let\mathbbm=\mathbb
 \newcommand{\cl}{\mathrm{cl}}
@@ -21,23 +22,23 @@
 
 \section{When Metrics Don't Matter}
 
-When one thinks of distance, one thinks of distance between points on a plane. One thinks of distance between points on a sphere, like our Earth. Between points in space, and between points on a curve. But distance is so much more general than that! There is distance between fuctions, between sets, and between strings of text!\footnote{The names of these remarkable notions of distance, for the interested reader: For functions see L1, L2 and super norm based metrics. For sets, see Hausdorff distance. For strings, see the various versions of edit distance.}
+When one thinks of distance, one thinks of distance between points on a plane. One thinks of distance between points on a sphere, like our Earth. Between points in space, and between points on a curve. But distance is so much more general than that! There is distance between functions, between sets, and between strings of text!\footnote{The names of these remarkable notions of distance, for the interested reader: For functions see L1, L2 and super norm based metrics. For sets, see Hausdorff distance. For strings, see the various versions of edit distance.}
 
 And so, while at first glance distance may seem like a simple straight-forward idea it is actually a topic of great depth.
 
-Before we go on, a little more conreteness. We will call things like these, which have a notion of distance, metric spaces. Formally, they are a set $X$ along with a function $d$ (the \emph{metric}) which assigns distances to pairs of points in $X$. $d$ must be reasonable in some sense that we will discuss later.
+Before we go on, a little more concreteness. We will call things like these, which have a notion of distance, metric spaces. Formally, they are a set $X$ along with a function $d$ (the \emph{metric}) which assigns distances to pairs of points in $X$. $d$ must be reasonable in some sense that we will discuss later.
 
 For example, the natural notion of distance on the real numbers corresponds to $d(a,b) = |a-b|$, the absolute value of their difference. So, $d(3,4) = |3-4| = 1$, $d(-1, -5) = |-1-(-5)| = 4$ and $d(2,2) = |2-2| = 0$.
 
-Similarily, we can define the metric for our regular notion of distance on a plane, the Euclidean Metric, as $d(a,b) = \sqrt{(a_1-b_1)^2 + (a_2-b_2)^2}$. This follows from the Pythagorian Theorem. So, $d((0,0), (3,4)) = \sqrt{3^2+4^2} = 5$.
+Similarly, we can define the metric for our regular notion of distance on a plane, the Euclidean Metric, as $d(a,b) = \sqrt{(a_1-b_1)^2 + (a_2-b_2)^2}$. This follows from the Pythagorean Theorem. So, $d((0,0), (3,4)) = \sqrt{3^2+4^2} = 5$.
 
-As the caveated language has suggested, however, this is not the only way to define distance. Imagine that you are driving a car in downtown Manhattan. The grid system of the roads means that you can only move horizontally and vertically, but not diagonally. For your purposes, something is as far away from you as the sum of its horizontal and vertical distnaces. This is the Manhattan Metric: $d(a,b) = |a_1-b_1| + |a_2-b_2|$. So, $d((1,2), (4, -1)) = |4-1| + |-1 -2| = 6$.
+As the caveated language has suggested, however, this is not the only way to define distance. Imagine that you are driving a car in downtown Manhattan. The grid system of the roads means that you can only move horizontally and vertically, but not diagonally. For your purposes, something is as far away from you as the sum of its horizontal and vertical distances. This is the Manhattan Metric: $d(a,b) = |a_1-b_1| + |a_2-b_2|$. So, $d((1,2), (4, -1)) = |4-1| + |-1 -2| = 6$.
 
 Different though these metrics seem, they actually agree on surprisingly great deal. The agree on what the boundary of sets are and whether sets are connected. They agree on which functions involving our space as its domain or range are continuous. The agree on whether our sets have holes in them.
 
 These observations hint that, for a certain class of questions, much of the information encoded in a notion of distance is superfluous and that some core similarity runs between all these different metrics. And, for me at least, such observations begin the thrill of the mathematical hunt. Can we precisely define this commonality between different metrics? Can we abstract away this core similarity and detach from notions of distance? If we succeed in abstracting this notion away, will it allow us to bring these notions to spaces that we can't put a useful metric on? The answer to all of these is yes!
 
-If you think about it for a moment, you may begin to suspect that all this is entangled with what it means to be very very close under a certain metric. The Euclidean and Manhatan metric may disagree with specific issues, but they agree that the sequence of points $$(0.1,0.1), ~ (0.01,0.01), ~ (0.001,0.001) ~...$$ gets arbitrarily close to $(0,0)$. Since a lot of the issues we've talked about, like continuity, boundary, and connectedness involve infintessimal behavior, ``arbitrary closeness'' seems like rather promising avenue.
+If you think about it for a moment, you may begin to suspect that all this is entangled with what it means to be very very close under a certain metric. The Euclidean and Manhattan metric may disagree with specific issues, but they agree that the sequence of points $$(0.1,0.1), ~ (0.01,0.01), ~ (0.001,0.001) ~...$$ gets arbitrarily close to $(0,0)$. Since a lot of the issues we've talked about, like continuity, boundary, and connectedness involve infintessimal behavior, ``arbitrary closeness'' seems like rather promising avenue.
 
 On this intuition, we will pursue this idea of being arbitrarily or infinitely close. As it turns out, this is the field of topology. From this initial mission statement, it may seem like a very sparse or dry topic, but as we shall see it is actually exceedingly rich. In some ways, one might thing of topology as giving us a sort of ``qualitative geometry" where we escape concerns like specific length and angles. The ideas are also remarkable for their extreme generality
 
@@ -51,9 +52,11 @@ A topological space $(X, \cl)$, then, is a space $X$ equipped with a closure ope
 
 \section{The Abstract Axiomatic Approach}
 
-One of the most famous mathematicians of all time is Euclid. He wrote a book, Euclid's \emph{Elements}, proving a large number of geometric results. Most of the results of Euclid's \emph{Elements} were proved before him by others, so why is it such a revered book? The true remarkableness of it lies not in the proved results, but in the way it begins with a few trivial geometric facts (eg. ``a line can be drawn between any two points'') that everyone can easily agree to be true, and builds up all the results as a logical progression from there.\footnote{This section is inspired by the section `Axioms and Men' from Pinter's \emph{A Book of Abstract One}}
+One of the most famous mathematicians of all time is Euclid. He wrote a book, Euclid's \emph{Elements}, proving a large number of geometric results. Most of the results of Euclid's \emph{Elements} were proved before him by others, so why is it such a revered book? The true remarkableness of it lies not in the proved results, but in the way it begins with a few trivial geometric facts (eg. ``a line can be drawn between any two points'') that everyone can easily agree to be true, and builds up all the results as a logical progression from there.\footnote{This section is inspired by the section `Axioms and Men' from Pinter's \emph{A Book of Abstract Algebra}}
 
-Algebra consequence of axiomatic approach is that it makes truth very objective, in some sense. Once you and I agree on the axioms, we can agree on whether or not a given result is true.\footnote{This sort of objective agreement on truth given prior agreement on certain basic things has some nice generalizations to probabilistic conditions and ``real life''. See Aumann's Agreement Theorem and friends.} Further, even if you don't agree with me on the axioms, we should be able to agree on whether results are true \emph{were} the axioms true.
+Algebra consequence of axiomatic approach is that it makes truth very objective, in some sense. Once you and I agree on the axioms, we can agree on whether or not a given result is true.
+%\footnote{This sort of objective agreement on truth given prior agreement on certain basic things has some nice generalizations to probabilistic conditions and ``real life''. See Aumann's Agreement Theorem and friends.}
+Further, even if you don't agree with me on the axioms, we should be able to agree on whether results are true \emph{were} the axioms true.
 
 This axiomatic approach shouldn't be seen as constraining. It doesn't mean that every proof needs to be stated in terms of axioms, since we can use anything we've previously proven. And often informal discussion and intuition will not involve axioms at all. And it leaves you free to consider any system of axioms you want, and imagine what that world would be like!
 
@@ -78,10 +81,10 @@ These ``abstract structures'' are a staple of mathematics. Some taste of the var
 There are also algebraic structures. These arose as mathematicians began to study algebraic questions involving things other than numbers, such as matrices and boolean values. During this explosion of algebras, it was observed that many of these different types of objects shared similar algebraic properties. These common properties were abstracted into algebraic structures. Perhaps the most notable such structures are sets along with binary operations that combine two elements into one in manners paralleling common arithmetic operations (like addition and multiplication):
 
 \begin{itemize}
-\item Monoids: an operation analagous to addition or multiplication
-\item Groups: operations analagous to addition and subtraction (or multiplication and division)
-\item Rings: operations analagous to addition, subtraction, and multiplication
-\item Fields: operations analagous to addition, subtraction, multiplication and divison
+\item Monoids: an operation analogous to addition or multiplication
+\item Groups: operations analogous to addition and subtraction (or multiplication and division)
+\item Rings: operations analogous to addition, subtraction, and multiplication
+\item Fields: operations analogous to addition, subtraction, multiplication and division
 \item Vector Spaces: an `addition' operation and a `scaling' operation
 \end{itemize}
 
@@ -92,7 +95,7 @@ Vector spaces often have additional structure:
 \item Inner Product Spaces: a ``multiply parallel components'' operation gives elements lengths and angles between elements
 \end{itemize}
 
-These are only the most basic and foundation abstract structures in mathematics: hundreds more exist. Each one mentioned here is extrmely dep and worthy of books of discussion -- any attempt to truely introduce them here would be a tragic butchering of the topic. They're mentioned to give you some taste for the variety of structures that exist. 
+These are only the most basic and foundation abstract structures in mathematics: hundreds more exist. Each one mentioned here is extremely deep and worthy of books of discussion -- any attempt to truley introduce them here would be a tragic butchering of the topic. They're mentioned to give you some taste for the variety of structures that exist. 
 
 
 ... 
@@ -139,31 +142,177 @@ Finally, the limit points of a set are the parts of the closure that are not in 
 
 To build some intuition, let's consider an example: the space is a rectangle, with our set as the bottom half, its complement as the top. They both contain part of the small stripe boundary.
 
-...
-%   __________________  
-%  |            A'    |
-%  |---------         |
-%  |        |         |
-%  |        ----------|
-%  |    A             |
-%  ^^^^^^^^^^^^^^^^^^^^
+\begin{center}
+\begin{asy}
+size(0,3cm);
+
+real sideY = 10;
+real stripeY = 4;
+real width = 30;
+real mid = 15;
+
+pair cBL = (0,0);
+pair cTL = (0, 2*sideY + stripeY);
+pair cBR = (width, 0);
+pair cTR = (width, 2*sideY + stripeY);
+
+pair mBL = (0, sideY);
+pair mTL = (0, sideY + stripeY);
+pair mBM = (mid, sideY);
+pair mTM = (mid, sideY + stripeY);
+pair mBR = (width, sideY);
+pair mTR = (width, sideY + stripeY);
+
+path c1=cBL--mBL--mBM--mTM--mTR--cBR--cycle;
+path c2=cTL--mBL--mBM--mTM--mTR--cTR--cycle;
+fill(c1,lightblue);
+fill(c2,lightgreen);
+draw(c1);
+draw(c2);
+draw(mBL--mBR, dashed);
+draw(mTL--mTR, dashed);
+label("$A$", (mid, sideY/2) );
+label("$A^C$", (mid, stripeY+3*sideY/2) );
+
+\end{asy}
+%\caption{Venn diagram}\label{venn}
+\end{center}
 
 Let's now consider what happens to the set when we apply a number of operations.
 
-...
-%  __________________    __________________    __________________
-% |    int(A)        |  |    int(A)        |  |                  |
-% |------------------|  |------------------|  |       cl(A)      |
-% | lim(A) | lim(A') |  |  bd(A) = bd(A')  |  |                  |
-% |------------------|  |------------------|  |------------------|
-% |    int(A')       |  |    int(A')       |  |    int(A')       |
-% ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^
+\begin{center}
+\begin{asy}
+size(0,3cm);
+
+real sideY = 10;
+real stripeY = 4;
+real width = 30;
+real mid = 15;
+
+pair cBL = (0,0);
+pair cTL = (0, 2*sideY + stripeY);
+pair cBR = (width, 0);
+pair cTR = (width, 2*sideY + stripeY);
+
+pair mBL = (0, sideY);
+pair mTL = (0, sideY + stripeY);
+pair mBM = (mid, sideY);
+pair mTM = (mid, sideY + stripeY);
+pair mBR = (width, sideY);
+pair mTR = (width, sideY + stripeY);
+
+picture p1 = new picture;
+picture p2 = new picture;
+picture p3 = new picture;
+picture p4 = new picture;
+picture p5 = new picture;
+picture p6 = new picture;
+
+path c1=cBL--mBL--mBM--mTM--mTR--cBR--cycle;
+path c2=cTL--mBL--mBM--mTM--mTR--cTR--cycle;
+fill(p1,c1,lightblue);
+fill(p1,c2,lightgreen);
+draw(p1,c1);
+draw(p1,c2);
+draw(p1,mBL--mBR, dashed);
+draw(p1,mTL--mTR, dashed);
+label(p1,"$A$", (mid, sideY/2) );
+label(p1,"$A^C$", (mid, stripeY+3*sideY/2) );
+
+path c1=cBL--mTL--mTR--cBR--cycle;
+path c2=cTL--mTL--mTR--cTR--cycle;
+fill(p2,c1,lightblue);
+fill(p2,c2,lightgreen);
+draw(p2,c1);
+draw(p2,c2);
+draw(p2,mBL--mBR, dashed);
+draw(p2,mTL--mTR, dashed);
+label(p2,"$\cl(A)$", (mid, sideY/2) );
+label(p2,"$\intr(A^C)$", (mid, stripeY+3*sideY/2) );
+
+path c1=cBL--mBL--mBR--cBR--cycle;
+path c2=cTL--mBL--mBR--cTR--cycle;
+fill(p3,c1,lightblue);
+fill(p3,c2,lightgreen);
+draw(p3,c1);
+draw(p3,c2);
+draw(p3,mBL--mBR, dashed);
+draw(p3,mTL--mTR, dashed);
+label(p3,"$\intr(A)$", (mid, sideY/2) );
+label(p3,"$\cl(A^C)$", (mid, stripeY+3*sideY/2) );
+
+add(p1);
+add(shift((35,0))*p2);
+add(shift((2*35,0))*p3);
+
+\end{asy}
+
+\begin{asy}
+size(0,3cm);
+
+real sideY = 10;
+real stripeY = 4;
+real width = 30;
+real mid = 15;
+
+pair cBL = (0,0);
+pair cTL = (0, 2*sideY + stripeY);
+pair cBR = (width, 0);
+pair cTR = (width, 2*sideY + stripeY);
+
+pair mBL = (0, sideY);
+pair mTL = (0, sideY + stripeY);
+pair mBM = (mid, sideY);
+pair mTM = (mid, sideY + stripeY);
+pair mBR = (width, sideY);
+pair mTR = (width, sideY + stripeY);
+
+picture p4 = new picture;
+picture p5 = new picture;
+picture p6 = new picture;
+
+path c1=cBL--mTL--mTR--cBR--cycle;
+path c2=cTL--mBL--mBM--mTM--mTR--cTR--cycle;
+path c3=mTL--mBL--mBM--mTM--cycle;
+fill(p4,c1,lightblue);
+fill(p4,c2,lightgreen);
+fill(p4,c3,lightred);
+draw(p4,c1);
+draw(p4,c2);
+draw(p4,mBL--mBR, dashed);
+draw(p4,mTL--mTR, dashed);
+label(p4,"$A$", (mid, sideY/2) );
+label(p4,"$\intr(A^C)$", (mid, stripeY+3*sideY/2) );
+label(p4,"$\lim(A)$", (mid/2, stripeY/2+1.0*sideY) );
+
+path c1=cBL--mTL--mTR--cBR--cycle;
+path c2=cTL--mBL--mBR--cTR--cycle;
+path c3=mTL--mBL--mBR--mTR--cycle;
+fill(p5,c1,lightblue);
+fill(p5,c2,lightgreen);
+fill(p5,c3,lightred);
+draw(p5,c1);
+draw(p5,c2);
+draw(p5,mBL--mBR, dashed);
+draw(p5,mTL--mTR, dashed);
+label(p5,"$\intr(A)$", (mid, sideY/2) );
+label(p5,"$\intr(A^C)$", (mid, stripeY+3*sideY/2) );
+label(p5,"$\bd(A)=\bd(A^C)$", (mid, stripeY/2+1.06*sideY) );
+
+add(p4);
+add(shift((35,0))*p5);
+//add(shift((2*35,0))*p3);
+
+\end{asy}
+\end{center}
+
+Now, this paints a bit of a falsely simplistic picture...
 
 {\bf Exercise}: How many different sets can you make using $\cl$ and the standard set operations? %smaller sets hint?
 
 {\bf Exercise}: A topological space can be defined in terms of an interior operator as well as closure. What are the axioms for an interior-based definition? (eg. $\intr(\intr(S)) = \intr(S)$ )
 
-{\bf Exercise}: A topological space can also be defined in terms of a boundary operator as well as closure. What are the axioms for a boundary-based definition? (Hint: one of the axioms becomes unecessary.)
+{\bf Exercise}: A topological space can also be defined in terms of a boundary operator as well as closure. What are the axioms for a boundary-based definition? (Hint: one of the axioms becomes unnecessary.)
 
 
 \section{Open and Closed}
@@ -189,7 +338,7 @@ It is important to note that not all sets are open or closed (or both). Many con
 
 \chapter{Finding Openess}
 
-\section{Arbitrarily Close}
+\section{Arbitrarily Close: Your Local Neighborhood Filter}
 
 \section{Topology in Terms of Open Sets}
 
