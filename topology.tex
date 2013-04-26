@@ -12,7 +12,7 @@
 
 \begin{document}
 
-\title{A Weird, Intuitive, Introduction to Topology\\{\small(To Be Given a More Glamorous Title It Amounts to Anything)}}
+\title{A Weird, Intuitive, Introduction to Topology\\{\small(To Be Given a More Glamorous Title If It Amounts to Anything)}}
 \author{Chris Olah}
 
 \maketitle
@@ -21,9 +21,17 @@
 
 \section{When Metrics Don't Matter}
 
-At first glance, distance is a deceptively straight forward idea. So simple. And it is this simplicity that makes it so powerful.
+When one thinks of distance, one thinks of distance between points on a plane. One thinks of distance between points on a sphere, like our Earth. Between points in space, and between points on a curve. But distance is so much more general than that! There is distance between fuctions, between sets, and between strings of text!\footnote{The names of these remarkable notions of distance, for the interested reader: For functions see L1, L2 and super norm based metrics. For sets, see Hausdorff distance. For strings, see the various versions of edit distance.}
 
-...
+And so, while at first glance distance may seem like a simple straight-forward idea it is actually a topic of great depth.
+
+Before we go on, a little more conreteness. We will call things like these, which have a notion of distance, metric spaces. Formally, they are a set $X$ along with a function $d$ (the \emph{metric}) which assigns distances to pairs of points in $X$. $d$ must be reasonable in some sense that we will discuss later.
+
+For example, the natural notion of distance on the real numbers corresponds to $d(a,b) = |a-b|$, the absolute value of their difference. So, $d(3,4) = |3-4| = 1$, $d(-1, -5) = |-1-(-5)| = 4$ and $d(2,2) = |2-2| = 0$.
+
+Similarily, we can define the metric for our regular notion of distance on a plane, the Euclidean Metric, as $d(a,b) = \sqrt{(a_1-b_1)^2 + (a_2-b_2)^2}$. This follows from the Pythagorian Theorem. So, $d((0,0), (3,4)) = \sqrt{3^2+4^2} = 5$.
+
+As the caveated language has suggested, however, this is not the only way to define distance. Imagine that you are driving a car in downtown Manhattan. The grid system of the roads means that you can only move horizontally and vertically, but not diagonally. For your purposes, something is as far away from you as the sum of its horizontal and vertical distnaces. This is the Manhattan Metric: $d(a,b) = |a_1-b_1| + |a_2-b_2|$. So, $d((1,2), (4, -1)) = |4-1| + |-1 -2| = 6$.
 
 Different though these metrics seem, they actually agree on surprisingly great deal. The agree on what the boundary of sets are and whether sets are connected. They agree on which functions involving our space as its domain or range are continuous. The agree on whether our sets have holes in them.
 
@@ -43,9 +51,9 @@ A topological space $(X, \cl)$, then, is a space $X$ equipped with a closure ope
 
 \section{The Abstract Axiomatic Approach}
 
-One of the most famous mathematicians of all time is Euclid. He wrote a book, Euclid's \emph{Elements}, proving a large number of geometric results. Most of the results of Euclid's \emph{Elements} were proved before him by others, so why is it such a revered book? The true remarkableness of it lies not in the proved results, but in the way it begins with a few trivial geometric facts (eg. ``a line can be drawn between any two points'') that everyone can easily agree to be true, and builds up all the results as a logical progression from there.\footnote{This section is inspired by the section `Axioms and Men' from Pinter's \emph{A Book of Abstract Algebra}}
+One of the most famous mathematicians of all time is Euclid. He wrote a book, Euclid's \emph{Elements}, proving a large number of geometric results. Most of the results of Euclid's \emph{Elements} were proved before him by others, so why is it such a revered book? The true remarkableness of it lies not in the proved results, but in the way it begins with a few trivial geometric facts (eg. ``a line can be drawn between any two points'') that everyone can easily agree to be true, and builds up all the results as a logical progression from there.\footnote{This section is inspired by the section `Axioms and Men' from Pinter's \emph{A Book of Abstract One}}
 
-One consequence of axiomatic approach is that it makes truth very objective, in some sense. Once you and I agree on the axioms, we can agree on whether or not a given result is true.\footnote{This sort of objective agreement on truth given prior agreement on certain basic things has some nice generalizations to probabilistic conditions and ``real life''. See Aumann's Agreement Theorem and friends.} Further, even if you don't agree with me on the axioms, we should be able to agree on whether results are true \emph{were} the axioms true.
+Algebra consequence of axiomatic approach is that it makes truth very objective, in some sense. Once you and I agree on the axioms, we can agree on whether or not a given result is true.\footnote{This sort of objective agreement on truth given prior agreement on certain basic things has some nice generalizations to probabilistic conditions and ``real life''. See Aumann's Agreement Theorem and friends.} Further, even if you don't agree with me on the axioms, we should be able to agree on whether results are true \emph{were} the axioms true.
 
 This axiomatic approach shouldn't be seen as constraining. It doesn't mean that every proof needs to be stated in terms of axioms, since we can use anything we've previously proven. And often informal discussion and intuition will not involve axioms at all. And it leaves you free to consider any system of axioms you want, and imagine what that world would be like!
 
@@ -54,6 +62,37 @@ But not only is the axiomatic approach not constraining, it can be empowering. A
 It's worth noting that, very frequently, axioms don't just float free, but are baked into the definition of something. ...
 
 Let's set aside axioms for a moment, and conduct a thought experiment. You are a mathematician a few centuries ago, interested in proving 
+
+...
+
+%Spaces
+These ``abstract structures'' are a staple of mathematics. Some taste of the variety that exists is valuable. There are spaces, sets equipped with some extra structure to give additional information about the space:
+
+\begin{itemize}
+\item Metric Spaces: a \emph{metric} function gives distances between elements
+\item Measure Spaces: a \emph{measure} function gives the \emph{measure} -- a generalization of length/area/volume/... -- of subsets
+\item Probability Spaces: measure spaces with a total measure of one
+\item Topological Spaces: the topic of this book
+\end{itemize}
+
+There are also algebraic structures. These arose as mathematicians began to study algebraic questions involving things other than numbers, such as matrices and boolean values. During this explosion of algebras, it was observed that many of these different types of objects shared similar algebraic properties. These common properties were abstracted into algebraic structures. Perhaps the most notable such structures are sets along with binary operations that combine two elements into one in manners paralleling common arithmetic operations (like addition and multiplication):
+
+\begin{itemize}
+\item Monoids: an operation analagous to addition or multiplication
+\item Groups: operations analagous to addition and subtraction (or multiplication and division)
+\item Rings: operations analagous to addition, subtraction, and multiplication
+\item Fields: operations analagous to addition, subtraction, multiplication and divison
+\item Vector Spaces: an `addition' operation and a `scaling' operation
+\end{itemize}
+
+Vector spaces often have additional structure:
+
+\begin{itemize}
+\item Normed Vector Spaces: vectors have a notion of length
+\item Inner Product Spaces: a ``multiply parallel components'' operation gives elements lengths and angles between elements
+\end{itemize}
+
+These are only the most basic and foundation abstract structures in mathematics: hundreds more exist. Each one mentioned here is extrmely dep and worthy of books of discussion -- any attempt to truely introduce them here would be a tragic butchering of the topic. They're mentioned to give you some taste for the variety of structures that exist. 
 
 
 ... 
@@ -78,7 +117,7 @@ Another natural question to ask, when given a function that takes objects of one
 
 Yet another natural question to ask is how closure interacts with our standard set operations. We will explore its relationship to complement shortly, but for now leave ourselves to consider only union and intersection.
 
-Clearly, the closure of the union of $A$ and $B$ should contain the closure of $A$ and the closure of $B$ -- that is $\cl(A)∪\cl(B) ⊆ \cl(A∪B)$. But should the closure contain additional points? Can a point be `infinitely close' to the union of $A$ and $B$ without being `infinitely close' to $A$ or $B$? Again, this doesn't seem very reasonable. So, $$\cl(A)∪\cl(B) = \cl(A∪B)$$
+Clearly, the closure of the union of $A$ and $B$ should contain the closure of $A$ and the closure of $B$ -- that is $\cl(A)∪\cl(B) ⊆ \cl(A∪B)$. But should the closure contain additional points? Can a point be `infinitely close' to the union of $A$ and $B$ without being `infinitely close' to $A$ or $B$? Surely it can only be as close to the union as it is to the closer of the two, and no closer than that? Again, for it to be another way doesn't seem very reasonable. So, $$\cl(A)∪\cl(B) = \cl(A∪B)$$
 
 What about intersection? A quick example will persuade you that there is little to be said here. The issue is that the two sets could be getting close to the set in very different ways. For example, consider the real numbers under and our usual notion of closure. The real numbers greater than zero, $ℝ_{>0}$, and real numbers less than zero, $ℝ_{<0}$, both get infinitely close to $0$, but they do so from opposite sides and so the intersection is empty and the closure of that is empty. Therefore, $\cl(A)∩\cl(B) ≠ \cl(A∩B)$.
 
@@ -124,6 +163,8 @@ Let's now consider what happens to the set when we apply a number of operations.
 
 {\bf Exercise}: A topological space can be defined in terms of an interior operator as well as closure. What are the axioms for an interior-based definition? (eg. $\intr(\intr(S)) = \intr(S)$ )
 
+{\bf Exercise}: A topological space can also be defined in terms of a boundary operator as well as closure. What are the axioms for a boundary-based definition? (Hint: one of the axioms becomes unecessary.)
+
 
 \section{Open and Closed}
 
@@ -133,7 +174,15 @@ A clopen set is a set that is both open and closed. How can this be? How can a s
 
 It is important to note that not all sets are open or closed (or both). Many contain part of their boundary but not another part.
 
-{\bf Exercise}: Are the following sets open, closed, clopen or neither?
+{\bf Exercise}: Are the following subsets of the real numbers (with the usual topology) open, closed, clopen or neither?
+\begin{enumerate}
+\item $[0,1] = \{x | 0 ≤ x ≤ 1\}$
+\item $[0,1) = \{x | 0 ≤ x < 1\}$
+\item $(0,1) = \{x | 0 < x < 1\}$.
+\end{enumerate}
+
+{\bf Exercise}: We've considered sets which are their own interior (open sets) and sets which are their own closure (closed sets), but what about sets that are their own boundary (boundary sets)? Are they open, closed, clopen, or neither (and how does this vary between examples)?
+
 
 
 \section{What Does Closure Look Like?}
