@@ -5,6 +5,7 @@
 \usepackage[inline]{asymptote}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{multicol}
 %\usepackage{amsthm}
 \let\mathbbm=\mathbb
 \newcommand{\cl}{\mathrm{cl}}
@@ -188,15 +189,17 @@ Another interesting topology is the finite-closed topology. It's sort of in betw
 \item Prove that the finite-closed topology's closure operation obeys the closure axioms.
 \end{enumerate}
 
-\section{Topological Anatomy: Interior, Boundary...}
+\section{Topological Operations: Interior, Boundary...}
 
 Up to this point, we've only talked about closure. You may be getting tired of it. Never fear, we're about to greatly expand the topological operations we have available.
 
 To begin with, let us define the \emph{boundary} of a set as the points that adhere to both the set and its complement. $$\bd(S) = \cl(S)∩\cl(S^C)$$
 
-We will also define the \emph{interior} operator, which will be the opposite of our closure operator. Instead of adding the boundary to a set, it removes the boundary from a set. We can find the interior of a set by considering the closure of its complement. By adding the boundary to the complement of the set, when we complement again we get our set without the boundary. Alternatively, we can define the interior as the set minus the boundary. $$\intr(S) = \cl(S^C)^C = S \setminus \bd(S)$$
+We will also define the \emph{interior} operator, which will be the opposite of our closure operator. Instead of adding the boundary to a set, it removes the boundary from a set. We can find the interior of a set by considering the closure of its complement. By adding the boundary to the complement of the set, when we complement again we get our set without the boundary. $$\intr(S) = \cl(S^C)^C$$
 
 Finally, the limit points of a set are the parts of the closure that are not in the original set. $$\lim(S) = \cl(S) \setminus S$$
+
+\subsection*{Topological Anatomy, A Visual Approach}
 
 To build some intuition, let's consider an example: the space is a rectangle, with our set as the bottom half, its complement as the top. They both contain part of the small stripe boundary.
 
@@ -366,11 +369,55 @@ add(shift((35,0))*p5);
 \end{asy}
 \end{center}
 
-Now, this paints a bit of a falsely simplistic picture...
+Now, this paints a bit of a falsely simplistic picture... ((Give example where things are less simple.))
+
+\subsection*{Topological Operation Identities}
+
+These pictures should have given you a lot of intuition for how these operations should interact. There are a lot of nice properties. We will call them the \emph{topological operation identities}.
+
+As you look at these, look back at the pictures and see how these identities can be observed in them.
+
+\begin{multicols}{2}
+
+\subsubsection*{Closure -- Interior}
+
+$$\cl(S)^C = \intr(S^C)$$
+$$\cl(S^C) = \intr(S)^C$$
+
+\subsubsection*{Closure -- Boundary}
+
+$$\cl(S) = S∪\bd(S)$$
+
+\subsubsection*{Closure -- Limit}
+
+$$\cl(S) = S∪\lim(S)$$
+
+\subsubsection*{Interior -- Boundary}
+
+$$\intr(S) = S \setminus \bd(S)$$
+
+$$\bd(S) = (\intr(S)∪\intr(S^C))^C$$
+
+\subsubsection*{Interior -- Limit}
+
+$$\intr(S) = S \setminus \lim(S^C) $$
+
+\subsubsection*{Boundary -- Limit}
+
+$$\bd(S) = \lim(S)∪\lim(S^C)$$
+
+\end{multicols}
+
+{\bf Proof (Closure -- Interior)}: The definition of interior gives us $\cl(S^C)^C = \intr(S)$. By substituting $S=S^C$ we get $\cl(S)^C = \intr(S^C)$. On the other hand, by complementing both sides, we get $\cl(S^C) = \intr(S)^C$.
+
+The proof of the rest of the identities are left as an exercise to the reader.
+
 
 \subsection*{Exercises}
 
 \begin{enumerate}
+
+\item Prove the remaining topological operation identities.
 
 \item How many different sets can you make using $\cl$ and the standard set operations? %smaller sets hint?
 
@@ -400,7 +447,7 @@ Next, we consider union. The union of two closed sets is closed.
 
 Finally we consider intersection. The intersection of any number of closed sets is closed. The idea is that if a point is close to the intersection of the sets, it was close to all the sets, and since they were closed it was also an element of all those sets, and so in the intersection as well.
 
-{\bf Proof}: If $\{S_n\}$ is a collection of closed sets, then $\cl(S_n) = S_n$ for all $n$. Let $S$ be the intersection of this collection, $S=\cap_n S_n$. Since $S ⊆ S_n$, let's consider $S_n = S∪(S_n \setminus S)$. Since $S_n$ is closed, $S_n = \cl(S_n) = \cl(S∪(S_n \setminus S)) = \cl(S)∪\cl(S_n \setminus S)$ and $\cl(S) ⊆ S_n$. It follows that $\cl(S) ⊆ \cap_n S_n = S$ and $S = \cl(S)$. Therefore, $S$ is closed.
+{\bf Proof}: If $\{S_n\}$ is a collection of closed sets, then $\cl(S_n) = S_n$ for all $n$. Let $S$ be the intersection of this collection, $S=\bigcap_n S_n$. Since $S ⊆ S_n$ for all $n$, by an earlier lemma, $\cl(S) ⊆ \cl(S_n)$ and since $\cl(S_n) = S_n$, it is the case that $\cl(S) ⊆ S_n$. It follows that $\cl(S) ⊆ \bigcap_n \cl(S_n) = S$ and $S = \cl(S)$. Therefore, $S$ is closed.
 
 You've probably noticed that we proved that the union of \emph{two} closed sets is closed but that we proved that the intersection of an \emph{arbitrary number} of closed sets is closed? What's the difference? Doesn't an arbitrary number follow from our two result by mathematical induction?
 
