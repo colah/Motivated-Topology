@@ -12,6 +12,8 @@
 \newcommand{\intr}{\mathrm{int}}
 \newcommand{\bd}{\mathrm{bd}}
 
+\let\textDelta=\Delta
+
 \setlength{\parindent}{0pt} % Default is 15pt.
 \setlength{\parskip}{6pt plus1pt minus1pt}
 
@@ -32,19 +34,25 @@
 
 When one thinks of distance, one thinks of distance between points on a plane. One thinks of distance between points on a sphere, like our Earth. Between points in space, and between points on a curve. But distance is so much more general than that! There is distance between functions, between sets, and between strings of text!\footnote{The names of these remarkable notions of distance, for the interested reader: For functions see L1, L2 and super norm based metrics. For sets, see Hausdorff distance. For strings, see the various versions of edit distance.}
 
-And so, while at first glance distance may seem like a simple straight-forward idea it is actually a topic of great depth.
+Distance on the plane is part of our everyday life. When we walk around a room, move a pencil between points on a sheet of paper, or move a mouse on a computer, we are working with distance. Most of us have been drilled on questions relating to this from our earliest ``mathematics''\footnote{The author feels uncomfortable giving any connotation of a connection between what we teach in schools and genuine mathematics.} education -- the Pythagorean theorem is really about distance on a plane. If I move by $Δx$ horizontally and $Δy$ vertically, the total distance that I move is the length of the diagonal line to my new position, which being the hypotenuse of the triangle we've made, is $\sqrt{Δx^2 + Δy^2}$. (Note that this wouldn't be true for triangles on a sphere.)
 
-Before we go on, a little more concreteness. We will call things like these, which have a notion of distance, metric spaces. Formally, they are a set $X$ along with a function $d$ (the \emph{metric}) which assigns distances to pairs of points in $X$. $d$ must be reasonable in some sense that we will discuss later.
+But things are different in different situations in life. A taxi driver in New York navigates a grid of roads and can't move diagonally. To the driver, the diagonal-movement-allowing notion of distance is very misleading: `closer' objects may be a longer drive away than `farther' objects. To the driver, distance is how far one needs to drive, the sum of the $x$ and $y$ distance, $|Δx| + |Δy|$.
 
-For example, the natural notion of distance on the real numbers corresponds to $d(a,b) = |a-b|$, the absolute value of their difference. So, $d(3,4) = |3-4| = 1$, $d(-1, -5) = |-1-(-5)| = 4$ and $d(2,2) = |2-2| = 0$.
+As you can see, distance is a matter of context. There are often multiple equally valid notions of distance on the same space. We call these different notions of distance \emph{metrics}. The diagonal-movement-allowing metric is called the \emph{Euclidean metric}. The non-diagonal-movement-allowing metric is called the \emph{Manhattan metric}.
 
-Similarly, we can define the metric for our regular notion of distance on a plane, the Euclidean Metric, as $d(a,b) = \sqrt{(a_1-b_1)^2 + (a_2-b_2)^2}$. This follows from the Pythagorean Theorem. So, $d((0,0), (3,4)) = \sqrt{3^2+4^2} = 5$.
+Once one has a metric, all sorts of questions become possible to ask. In addition to the obvious questions (is point $a$ or point $b$ further from $c$?), it becomes possible to formally define many ideas that we intuitively have:
 
-As the caveated language has suggested, however, this is not the only way to define distance. Imagine that you are driving a car in downtown Manhattan. The grid system of the roads means that you can only move horizontally and vertically, but not diagonally. For your purposes, something is as far away from you as the sum of its horizontal and vertical distances. This is the Manhattan Metric: $d(a,b) = |a_1-b_1| + |a_2-b_2|$. So, $d((1,2), (4, -1)) = |4-1| + |-1 -2| = 6$.
+\begin{itemize}
+\item What is the boundary of a set?
+\item Are two sets connected?
+\item Is a function continuous?
+\item Does a sequence converge?
+\item Does a set have holes in it?
+\end{itemize}
 
-Different though these metrics seem, they actually agree on surprisingly great deal. The agree on what the boundary of sets are and whether sets are connected. They agree on which functions involving our space as its domain or range are continuous. The agree on whether our sets have holes in them.
+Remarkably, different though the Euclidean and the Manhattan metric are, they give the exact same answer to all these questions!
 
-These observations hint that, for a certain class of questions, much of the information encoded in a notion of distance is superfluous and that some core similarity runs between all these different metrics. And, for me at least, such observations begin the thrill of the mathematical hunt. Can we precisely define this commonality between different metrics? Can we abstract away this core similarity and detach from notions of distance? If we succeed in abstracting this notion away, will it allow us to bring these notions to spaces that we can't put a useful metric on? The answer to all of these is yes!
+This observation hints that, for a certain class of broad and important questions, much of the information encoded in a notion of distance is superfluous and that some core similarity runs between all these different metrics. And, for me at least, such observations begin the thrill of the mathematical hunt. Can we precisely define this commonality between different metrics? Can we abstract away this core similarity and detach from notions of distance? If we succeed in abstracting this notion away, will it allow us to bring these notions to spaces that we can't put a useful metric on? The answer to all of these is yes!
 
 If you think about it for a moment, you may begin to suspect that all this is entangled with what it means to be very very close under a certain metric. The Euclidean and Manhattan metric may disagree with specific issues, but they agree that the sequence of points $$(0.1,0.1), ~ (0.01,0.01), ~ (0.001,0.001) ~...$$ gets arbitrarily close to $(0,0)$. Since a lot of the issues we've talked about, like continuity, boundary, and connectedness involve infintessimal behavior, ``arbitrary closeness'' seems like rather promising avenue.
 
