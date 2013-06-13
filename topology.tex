@@ -29,7 +29,7 @@
 
 \tableofcontents
 
-\chapter*{In Defense of my Hubris}
+\chapter*{Preface}
 
 I call myself an aspiring mathematician because I'm painfully aware of how little I know compared to, for example, research mathematicians. I'm also aware that many introductions to topology have been written by people with much deeper understandings of the subject than me.
 
@@ -37,7 +37,9 @@ But after looking at many of the introductions available, I still feel disconten
 
 It occurs to me that perhaps I may have some comparative advantage in my lack of mathematical maturity, because I'm much closer to the level of someone first learning topology than is someone who has researched in it for decades. It occurs to me that perhaps I simply have a different aesthetic, caring deeply about motivation, and struggling with accepting definitions on my faith in the author that I will one day find the notion valuable. (Or perhaps the motivation is more easily seen by others, and so doesn't need to be taught. Or perhaps there's deep value in developing this intuition on ones own, and so it is strategically not taught. Or perhaps intuition is personal and difficult to convey.)
 
-In the worst case, writing this is clarifying my own thoughts and understanding. And having an open source topology textbook might be valuable, even if it isn't as good as others. 
+In the worst case, writing this is clarifying my own thoughts and understanding. {\bf As long as the reader understands this is very very rough} it seems unlikely to cause any harm.
+
+And I think there's value in how radically different a perspective this is from the standard introduction to topology.
 
 \chapter{Finding Closure}
 
@@ -45,9 +47,9 @@ In the worst case, writing this is clarifying my own thoughts and understanding.
 
 When one thinks of distance, one thinks of distance between points on a plane. One thinks of distance between points on a sphere, like our Earth. Between points in space, and between points on a curve. But distance is so much more general than that! There is distance between functions, between sets, and between strings of text!\footnote{The names of these remarkable notions of distance, for the interested reader: For functions see L1, L2 and super norm based metrics. For sets, see Hausdorff distance. For strings, see the various versions of edit distance.}
 
-Distance on the plane is part of our everyday life. When we walk around a room, move a pencil between points on a sheet of paper, or move a mouse on a computer, we are working with distance. Most of us have been drilled on questions relating to this from our earliest ``mathematics''\footnote{The author feels uncomfortable giving any connotation of a connection between what we teach in schools and genuine mathematics.} education -- the Pythagorean theorem is really about distance on a plane. If I move by $Δx$ horizontally and $Δy$ vertically, the total distance that I move is the length of the diagonal line to my new position, which being the hypotenuse of the triangle we've made, is $\sqrt{Δx^2 + Δy^2}$. (Note that this wouldn't be true for triangles on a sphere.)
+Distance on the plane is part of our everyday life. When we walk around a room, move a pencil between points on a sheet of paper, or move a mouse on a computer, we are working with distance. Most of us have been drilled on questions relating to this from our earliest education -- the Pythagorean theorem is really about distance on a plane. If I move by $Δx$ horizontally and $Δy$ vertically, the distance that I moved from my starting point is the length of the diagonal line to my new position, which being the hypotenuse of the triangle we've made, is $\sqrt{Δx^2 + Δy^2}$. (Note that this wouldn't be true for triangles on a sphere.)
 
-But things are different in different situations in life. A taxi driver in New York navigates a grid of roads and can't move diagonally. To the driver, the diagonal-movement-allowing notion of distance is very misleading: `closer' objects may be a longer drive away than `farther' objects. To the driver, distance is how far one needs to drive, the sum of the $x$ and $y$ distance, $|Δx| + |Δy|$.
+But things are different in different situations in life. A taxi driver in New York navigates a grid of roads and can't move diagonally. To the driver, the diagonal-movement-allowing notion of distance is very misleading: `closer' objects may be a longer drive away than `farther' objects. To the driver, distance between points is how far one needs to drive, the sum of the $x$ and $y$ distance, $|Δx| + |Δy|$.
 
 As you can see, distance is a matter of context. There are often multiple equally valid notions of distance on the same space. We call these different notions of distance \emph{metrics}. The diagonal-movement-allowing metric is called the \emph{Euclidean metric}. The non-diagonal-movement-allowing metric is called the \emph{Manhattan metric}.
 
@@ -448,7 +450,7 @@ The proof of the rest of the identities are left as an exercise to the reader.
 
 \item Prove the remaining topological operation identities.
 
-\item How many different sets can you make using $\cl$ and the standard set operations? %smaller sets hint?
+\item How many different sets can you make using closure and complement?
 
 \item A topological space can be defined in terms of an interior operator as well as closure. What are the axioms for an interior-based definition? (eg. $\intr(\intr(S)) = \intr(S)$ )
 
@@ -539,7 +541,19 @@ One thing that we can do to really help us understand is look visualize what all
 
 We will represent $A \subset B$ by a blue line between $A$ and $B$, with $A$ bellow $B$. We will represent $\cl(A) = B$ with a red arrow from $A$ to $B$. 
 
-We can now visualize all of the closure axioms:
+For example, recall that the discrete closure operator is the one where no points are close together, and so closure doesn't change anything. We visualize it on the space $\{1,2\}$ as:
+
+\begin{center}
+\includegraphics{images/ClosureAxiomsOnLattice/discrete.pdf}
+\end{center}
+
+On the other hand, in the indiscrete closure, where all points are close together and so every non-empty set gets mapped to the full space, looks like:
+
+\begin{center}
+\includegraphics{images/ClosureAxiomsOnLattice/indiscrete.pdf}
+\end{center}
+
+As we will see, all the closure axioms have visual interpretations. As you read, verify that the two previous examples obey the closure axioms.
 
 \subsection*{Closure 1: $\cl(∅) = ∅$}
 
@@ -585,10 +599,18 @@ This conflict between the number of possible mappings and the number of valid cl
 
 \begin{enumerate}
 
-\item Draw the discrete closure operator on $\{1,2,3\}$.
-\item Draw the inidiscrete closure operator on $\{1,2,3\}$.
+\item Draw the discrete closure operator on $\{1,2,3\}$. Verify that it obeys the closure axioms visually.
+\item Draw the inidiscrete closure operator on $\{1,2,3\}$. Verify that it obeys the closure axioms visually.
 \item Draw a closure operator on $\{1,2,3\}$ that isn't the discrete or indiscrete closure operator.
-\item Draw the finite-closed closure operator on $ℤ$. (Obviously, since $ℤ$ is infinite, you can't draw the entire thing. Draw a represantitive part and imagine what the entire thing would be like...)
+\item Draw the finite-closed closure operator on $ℤ$. Verify that it obeys the closure axioms visually. (Obviously, since $ℤ$ is infinite, you can't draw the entire thing. Draw a represantitive part and imagine what the entire thing would be like...)
+\item On the closure operator drawings you've made, circle or highlight the closed sets. What do you notice?
+\item Prove that closed sets uniquely define the closure operation.
+\item Visually prove the basic set interactions with closed sets. (Prove that the union of two closed sets is closed, that the intersection of an arbitrary number of closed sets is closed.)
+\item The interior operator can be visualized in the same way. Redraw the previous examples with arrows representing interior (preferably, use a different color). Compare the closure diagrams and the interior diagrams. What do you notice?
+\item On the interior operator drawings you've made, circle or highlight the open sets. What do you notice?
+\item Prove that the open sets uniquely define the interior operator.
+
+
 
 \end{enumerate}
 
