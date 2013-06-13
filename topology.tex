@@ -1,8 +1,9 @@
 \documentclass{report}
 
-\usepackage[colorlinks=true, linkcolor=black]{hyperref}
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black]{hyperref}
 \usepackage[utf8x]{inputenc}
 \usepackage[inline]{asymptote}
+\usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{multicol}
@@ -27,6 +28,16 @@
 \maketitle
 
 \tableofcontents
+
+\chapter*{In Defense of my Hubris}
+
+I call myself an aspiring mathematician because I'm painfully aware of how little I know compared to, for example, research mathematicians. I'm also aware that many introductions to topology have been written by people with much deeper understandings of the subject than me.
+
+But after looking at many of the introductions available, I still feel discontent with what exists. Definitions feel unmotivated, point-set topology seems arbitrary. And at the same time, after spending spending many weeks mulling over the most basic ideas of topology, they've coalesced into very clear and obvious notions. I want to try and share that.
+
+It occurs to me that perhaps I may have some comparative advantage in my lack of mathematical maturity, because I'm much closer to the level of someone first learning topology than is someone who has researched in it for decades. It occurs to me that perhaps I simply have a different aesthetic, caring deeply about motivation, and struggling with accepting definitions on my faith in the author that I will one day find the notion valuable. (Or perhaps the motivation is more easily seen by others, and so doesn't need to be taught. Or perhaps there's deep value in developing this intuition on ones own, and so it is strategically not taught. Or perhaps intuition is personal and difficult to convey.)
+
+In the worst case, writing this is clarifying my own thoughts and understanding. And having an open source topology textbook might be valuable, even if it isn't as good as others. 
 
 \chapter{Finding Closure}
 
@@ -80,9 +91,13 @@ But not only is it not constraining, building from axioms can be empowering. A g
 
 It's worth noting that, very frequently, axioms don't just float free, but are baked into the definition of something. If you define something to be an object with certain properties, those are `axioms' when you are talking about that type of object. In these cases, axioms become less a matter of truth and more a question of taste or usefulness.\footnote{Again, I refer the reader to \emph{Proofs and Refutations}, a play about mathematical philosophy where characters explore possible definitions of a polyhedron, and the process of coming up with those definitions.}
 
-Let's set aside axioms for a moment, and conduct a thought experiment. You are a mathematician a few centuries ago, interested in proving 
+Alone, all this makes the axiomatic approach very compelling... But it actually develops into something much deeper. One recurring theme in mathematics is that we see the same patterns and ideas in very different places.
 
-...
+For example, you are familiar with the distributivity of multiplication: $a*(b+c) = a*b+a*c$. This is true not only about numbers, but also about matrices. It is also the case that for three sets, intersection distributes over union, $a∩(b∪c) = a∩b ∪ a∩c$, and that for three boolean values, and distributes over or, $a∧(b∨c) = a∧b ∨ a∧c$.
+
+Another example is all the different mathematical objects we can talk about distance between.
+
+These recurring patterns and ideas motivate mathematicians to abstract the common parts into a new idea. Not only are these generic ideas often beautiful and reveal very deep properties of objects... They also make our lives a lot easier, because we don't have to write the same proof out hundreds of times, for all the different objects we might want to work with that have the same properties!
 
 (Readers with a background in programming or computer science may like to think of this as making mathematical proofs polymorphic, proving things not for a singular type of object, but for any type that extends a class, implements an interface, or the analogous idea in one's preferred programming language.\footnote{This analogy between proofs and programs is actually very deep. See the Curry-Howard Correspondence, which links proofs of theorems to programs generating objects of a particular type.})
 
@@ -90,8 +105,8 @@ Let's set aside axioms for a moment, and conduct a thought experiment. You are a
 These ``abstract structures'' are a staple of mathematics. Some taste of the variety that exists is valuable. There are spaces, sets equipped with some extra structure to give additional information about the space:
 
 \begin{itemize}
-\item Metric Spaces: a \emph{metric} function gives distances between elements
-\item Measure Spaces: a \emph{measure} function gives the \emph{measure} -- a generalization of length/area/volume/... -- of subsets
+\item Metric Spaces: a \emph{metric}, $d$, function gives distances between elements
+\item Measure Spaces: a \emph{measure} function, $\mu$, gives the \emph{measure} -- a generalization of length/area/volume/... -- of subsets
 \item Probability Spaces: measure spaces with a total measure of one
 \item Topological Spaces: the topic of this book
 \end{itemize}
@@ -119,9 +134,15 @@ These are only the most basic and foundation abstract structures in mathematics:
 
 \begin{enumerate}
 
-\item Pick an abstract structure you are unfamiliar with that was mentioned in this section. Imagine some reasonableness rules it might be subject to. Brainstorm a list of nice properties for it to have. Then look up its definition and see if you were right! Try to understand the motivation where the definition differs from yours. (Repeat this exercise as desired, until you run out of unknown structures!)
+\item Pick an abstract structure you are unfamiliar with that was mentioned in this section. Imagine some reasonableness rules it might be subject to. Brainstorm a list of nice properties for it to have. Then look up its definition and see if you were right! Try to understand the motivation where the definition differs from yours. 
+
+Is there another structure that is equivalent to what you came up with? You may want to look at Wikipedia's \href{http://en.wikipedia.org/wiki/Outline_of_algebraic_structures}{Outline of Algebraic Structures}. If, ultimately, you can't find your structure, you may have stumbled upon something new to explore!
+
+(Repeat this exercise as desired, until you run out of unknown structures!)
 
 \item Pick an abstract structure you are familiar with. Try to define it in the most radically different way possible. Extra points for more alternative definitions. Extra points for inventing new words in the process.
+
+(Repeat this exercise as desired, until you run out of known structures!)
 
 \end{enumerate}
 
@@ -187,7 +208,7 @@ On the other hand, if neither $A$ or $B$ is $∅$, then $\cl(A∪B) = X = X∪X 
 
 The opposite of the indiscrete topology is the discrete topology. Where in the indiscrete topology, everything is intuitively close together and sticks to everything else, in the discrete topology everything is spaced apart and touches nothing else. The closure operator for a discrete topology is the identity operation, $\cl(S) = S$, since there is never anything additional near by.
 
-Another interesting topology is the finite-closed topology. It's sort of in between the discrete and indiscrete topologies. In it, nothing sticks to individual points, but all points are close to any infinite set. The closure operator is $$\cl(S) = \begin{cases} ~S & |S| \in \mathbb{N}\\ ~X & ~S~ \not\in \mathbb{N}\\ \end{cases} $$
+Another interesting topology is the finite-closed topology. It's sort of in between the discrete and indiscrete topologies. In it, nothing sticks to individual points, but all points are close to any infinite set. The closure operator is $$\cl(S) = \begin{cases} ~S & |S| ∈ ℕ\\ ~X & ~S~ \not\in ℕ\\ \end{cases} $$
 
 \subsection*{Exercises}
 
@@ -512,7 +533,64 @@ Proving these is left as an exercise to the reader.
 
 \section{What Does Closure Look Like?}
 
-((Draw illustrations of two copies of $P(X)$ as lattices with arrows representing the closure mapping. Discuss each closure axiom in this context. Reader should see just how far from being an arbitrary function $\cl$ is. Hint that it may not be the best way to describe topology, because of a smart-data paradigm.))
+What does it \emph{really} mean to be a valid closure operator? We have a bunch of rules, but what do they mean?
+
+One thing that we can do to really help us understand is look visualize what all the rules mean.
+
+We will represent $A \subset B$ by a blue line between $A$ and $B$, with $A$ bellow $B$. We will represent $\cl(A) = B$ with a red arrow from $A$ to $B$. 
+
+We can now visualize all of the closure axioms:
+
+\subsection*{Closure 1: $\cl(∅) = ∅$}
+
+The empty set is mapped by closure to itself.
+
+\begin{center}
+\includegraphics{images/ClosureAxiomsOnLattice/empty.pdf}
+\end{center}
+
+\subsection*{Closure 2: $S ⊆ \cl(S)$}
+
+Arrows either go horizontally (to itself) or upwards (to one of its super sets), but never downwards.
+
+\begin{center}
+\includegraphics{images/ClosureAxiomsOnLattice/superseteq.pdf}
+\end{center}
+
+\subsection*{Closure 3: $\cl(\cl(S)) = \cl(S)$}
+
+If an arrow maps to some value, that value must map to itself. For example, if the closure of $A$ is $B$, then $B$ must be its own closure.
+
+\begin{center}
+\includegraphics{images/ClosureAxiomsOnLattice/idempotent.pdf}
+\end{center}
+ 
+\subsection*{Closure 4: $\cl(A)∪\cl(B) = \cl(A∪B)$}
+
+The union of two sets maps to the union of their closures. For example, if $C$ is the closure of $A$ and $D$ is the closure of $B$, then $C \cup D$ must be the closure of $A \cup B$.
+
+\begin{center}
+\includegraphics{images/ClosureAxiomsOnLattice/union.pdf}
+\end{center}
+
+\section*{Insights from Visualization}
+
+One very important insight to draw is just how far from being an arbitrary mapping from subsets of your space ($P(X)$) to subsets of your space the closure operation is. Only a tiny fraction of such functions obey the closure axiom.
+
+For a set of cardinality (size) $n$, the number of possible maps from its subsets to its subsets is $(2^n)^{(2^n)}$. In the next chapter, we will see that the number of valid closure operators is much less than $2^{(2^n)}$. That's a pretty big difference!
+
+This conflict between the number of possible mappings and the number of valid closure operators is a first hint that perhaps the closure operator isn't the best way to represent topological information about a set. 
+
+\subsection*{Exercises}
+
+\begin{enumerate}
+
+\item Draw the discrete closure operator on $\{1,2,3\}$.
+\item Draw the inidiscrete closure operator on $\{1,2,3\}$.
+\item Draw a closure operator on $\{1,2,3\}$ that isn't the discrete or indiscrete closure operator.
+\item Draw the finite-closed closure operator on $ℤ$. (Obviously, since $ℤ$ is infinite, you can't draw the entire thing. Draw a represantitive part and imagine what the entire thing would be like...)
+
+\end{enumerate}
 
 \chapter{Finding Openess}
 
@@ -522,15 +600,16 @@ Proving these is left as an exercise to the reader.
 
 \section{Topology in Terms of Open Sets}
 
-((Redefine closure using neighborhood filters. Prove that the open set properties we derived imply the closure axioms. Therefore, we can describe a topological space in terms of open sets.))
+((Redefine closure using neighborhood filters. Prove that the open set properties we derived in the last chapter imply the closure axioms. Therefore, we can describe a topological space in terms of open sets.))
 
 ((Reasons why it might be better: More random structures form topologies; Easier to describe topologies; Useful in proofs; Open sets are a very powerful language for us to state more complicated ideas in. Remind readers that there can be lots of valid definitions.))
 
 \section{Separation Axioms}
 
-((Introduce separation axioms with pictures as in\\ christopherolah.wordpress.com/2010/08/14/separation-axiom-visualisations .))
+((Introduce separation axioms with pictures as in \href{http://christopherolah.wordpress.com/2010/08/14/separation-axiom-visualisations}{my blog post on separation axioms} .))
 
 \chapter{Finding the Big Picture}
 
+((Local point set topology isn't very glamorous. To prevent reader fatigue, we want to give some tools to zoom out and see the big picture of a topological space (AKA, give them something closer the popular notion of topology). So, we introduce some combinatorial or algebraic topology. Probably homotopy groups.))
 
 \end{document}
